@@ -45,7 +45,7 @@ export default function AuthPage() {
         setStatus('✅ OTP sent to your email');
         setStep('verify');
       } catch (err) {
-        console.error('EmailJS send error:', err);
+        //console.error('EmailJS send error:', err);
         setStatus('❌ Failed to send OTP email');
       }
     } else {

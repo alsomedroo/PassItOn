@@ -8,7 +8,7 @@ export const runtime = 'nodejs'; // Ensure Node.js runtime (not edge)
 
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
-  console.log('Login attempt:', { email, password });
+  //console.log('Login attempt:', { email, password });
 
   await connectToDatabase().then(() => console.log('Connected to database'));
 
