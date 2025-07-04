@@ -36,8 +36,8 @@ export async function POST(req: Request) {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.BREVO_SMTP_USER!,  // e.g. 91420c002@smtp-brevo.com
-        pass: process.env.BREVO_SMTP_PASS!,  // your SMTP key
+        user: process.env.BREVO_SMTP_USER!,  
+        pass: process.env.BREVO_SMTP_PASS!,  
       },
     });
 
