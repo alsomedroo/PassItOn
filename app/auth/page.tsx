@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import emailjs from "@emailjs/browser";
 import Image from 'next/image';
 
 export default function AuthPage() {
@@ -15,7 +14,7 @@ export default function AuthPage() {
   const [otp, setOtp] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
-  const [userExists, setUserExists] = useState(false); // NEW
+  const [userExists, setUserExists] = useState(false);
 
   const handleSendOtp = async () => {
     setLoading(true);
@@ -31,28 +30,13 @@ export default function AuthPage() {
     const data = await res.json();
 
     if (res.ok) {
-      try {
-        await emailjs.send(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-          {
-            to_email: email,
-            otp: data.otp,
-          },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-        );
-
-        setStatus('✅ OTP sent to your email');
-        setStep('verify');
-      } catch (err) {
-        //console.error('EmailJS send error:', err);
-        setStatus('❌ Failed to send OTP email');
-      }
+      setStatus('✅ OTP sent to your email');
+      setStep('verify');
     } else {
       setStatus(`❌ ${data.error}`);
       if (data.userExists) {
         setUserExists(true);
-        setTimeout(() => router.push('/auth/login'), 2000); // Auto redirect
+        setTimeout(() => router.push('/auth/login'), 2000);
       }
     }
 
@@ -82,24 +66,24 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex-col text-white flex items-center justify-center px-6">
-      <div>
-        <motion.div
-          className="mb-6"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Startup Logo"
-            width={100}
-            height={100}
-            className="mx-auto rounded-full"
-          />
-        </motion.div>
-      </div>
+    <div className="min-h-screen bg-black text-white flex-col flex items-center justify-center px-6">
+      {/* Logo */}
+      <motion.div
+        className="mb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <Image
+          src="/logo.png"
+          alt="Startup Logo"
+          width={100}
+          height={100}
+          className="mx-auto rounded-full"
+        />
+      </motion.div>
 
+      {/* Auth Box */}
       <div className="bg-zinc-900 p-8 rounded-xl max-w-md w-full">
         <h2 className="text-2xl font-bold mb-6 text-center">
           {step === 'signup' ? 'Sign Up with OTP' : 'Enter OTP'}
@@ -150,10 +134,12 @@ export default function AuthPage() {
           </>
         )}
 
+        {/* Status and errors */}
         {status && (
           <p className="mt-4 text-center text-sm text-yellow-400">{status}</p>
         )}
 
+        {/* Redirect to login if user exists */}
         {userExists && (
           <p
             onClick={() => router.push('/auth/login')}

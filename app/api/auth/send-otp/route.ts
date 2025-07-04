@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   await connectToDatabase();
   const { email } = await req.json();
 
-  // ✅ Check if user already exists
+  // Check if user already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     return NextResponse.json(
@@ -17,41 +17,53 @@ export async function POST(req: Request) {
     );
   }
 
-  // ✅ Generate OTP
+  // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min from now
+  console.log(`Generated OTP for ${email}: ${otp}`);
 
-  // ✅ Save or update OTP in DB
+  // Save/update OTP in DB
   await Otp.findOneAndUpdate(
     { email },
     { otp, expiresAt },
     { upsert: true, new: true }
   );
 
-  // ✅ Send OTP via Brevo SMTP using Nodemailer
+  // Configure SMTP transport
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp-relay.brevo.com',
       port: 587,
+      secure: false,
       auth: {
-        user: process.env.BREVO_EMAIL!,
-        pass: process.env.BREVO_SMTP_KEY!,
+        user: process.env.BREVO_SMTP_USER!,  // e.g. 91420c002@smtp-brevo.com
+        pass: process.env.BREVO_SMTP_PASS!,  // your SMTP key
       },
     });
 
+    // Compose email
     const mailOptions = {
-      from: `"PassItOn" <${process.env.BREVO_EMAIL}>`,
+      from: `"PassItOn" <${process.env.BREVO_FROM_EMAIL}>`, // must match verified sender
       to: email,
       subject: 'Your OTP Code',
-      html: `<p>Hey there 👋,<br /><br />Your OTP code is: <strong>${otp}</strong><br /><br />This code will expire in 10 minutes.</p>`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2>Hey there 👋</h2>
+          <p>Your OTP code is:</p>
+          <div style="font-size: 24px; font-weight: bold; margin: 16px 0; color: #4F46E5;">${otp}</div>
+          <p>This code will expire in <strong>10 minutes</strong>.</p>
+          <br />
+          <p>Thanks,<br/>The <strong>PassItOn</strong> Team</p>
+        </div>
+      `,
     };
 
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email sent:', info);
   } catch (err) {
     console.error('❌ Error sending email:', err);
     return NextResponse.json({ error: 'Failed to send OTP email' }, { status: 500 });
   }
 
-  // 🚨 In production, remove `otp` from the response!
   return NextResponse.json({ success: true });
 }

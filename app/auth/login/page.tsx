@@ -44,7 +44,7 @@ export default function LoginPage() {
         transition={{ duration: 0.5 }}
         className="flex flex-col items-center w-full max-w-md"
       >
-        {/* Logo with slight glow */}
+        {/* Logo */}
         <motion.div
           className="mb-6"
           initial={{ opacity: 0, y: -20 }}
@@ -77,6 +77,7 @@ export default function LoginPage() {
             onChange={e => setEmail(e.target.value)}
             className="w-full p-3 mb-4 rounded bg-zinc-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
           />
+
           <input
             type="password"
             placeholder="Password"
@@ -108,6 +109,13 @@ export default function LoginPage() {
               {status}
             </motion.p>
           )}
+
+          <p
+            onClick={() => router.push('/auth/forgot-password')}
+            className="mt-6 text-sm text-center text-zinc-400 hover:text-white cursor-pointer transition"
+          >
+            Forgot Password?
+          </p>
         </motion.div>
       </motion.div>
     </div>

@@ -24,6 +24,7 @@
     "motion": "^12.19.1",
     "multer": "^2.0.1",
     "next": "15.3.4",
+    "ngrok": "^5.0.0-beta.2",
     "nodemailer": "^7.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
