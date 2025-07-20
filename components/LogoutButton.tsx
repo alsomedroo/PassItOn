@@ -1,4 +1,5 @@
 "use client";
+
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -11,10 +12,8 @@ export function LogoutButton() {
       const res = await fetch("/api/auth/logout", { method: "POST" });
 
       if (res.ok) {
-        // Redirect to login after clearing cookie
         router.push("/auth/login");
       } else {
-        // Optional: handle errors gracefully
         alert("Failed to logout. Please try again.");
       }
     } catch (error) {
@@ -25,29 +24,23 @@ export function LogoutButton() {
 
   return (
     <motion.button
-      whileHover={{ scale: 1.07 }}
-      whileTap={{ scale: 0.96 }}
-      onClick={handleLogout}
-      type="button"
-      className="
-        flex items-center gap-2
-        px-5 py-2
-        rounded-full
-        bg-white
-        text-[#5B3DF6]
-        font-semibold
-        shadow-md
-        transition
-        hover:bg-[#ffe158]
-        hover:text-[#23185B]
-        focus:outline-none
-        focus:ring-2 focus:ring-offset-2 focus:ring-[#5B3DF6]
-        text-base
-      "
-      title="Logout"
+    whileHover={{ scale: 1.06 }}
+    whileTap={{ scale: 0.94 }}
+    onClick={handleLogout}
+    type="button"
+    title="Logout"
+    className="
+    w-10 h-10
+    flex items-center justify-center
+    rounded-full
+    bg-white text-[#5B3DF6]
+    hover:bg-[#e6e0fd]
+    transition
+    cursor-pointer
+    shadow
+    "
     >
-      <LogOut size={18} strokeWidth={2} />
-      Logout
+    <LogOut size={22} />
     </motion.button>
   );
 }

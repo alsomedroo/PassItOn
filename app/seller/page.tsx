@@ -133,7 +133,7 @@ export default function SellerPage() {
               className="px-5 py-3 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-[#5B3DF6] focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition"
             />
             <input
-              type="text"
+              type="number"
               name="price"
               placeholder="Price (INR)"
               value={formData.price}
@@ -152,6 +152,7 @@ export default function SellerPage() {
             />
             <select
               name="category"
+              title="Select Category"
               value={formData.category}
               onChange={handleChange}
               required
@@ -173,6 +174,7 @@ export default function SellerPage() {
               <UploadCloud size={18} /> Product Image
             </label>
             <input
+              placeholder="upload an image"
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
@@ -197,6 +199,7 @@ export default function SellerPage() {
 
           {/* COLLEGE SELECT */}
           <select
+            title="Select Your College"
             name="college"
             value={formData.college}
             onChange={handleChange}

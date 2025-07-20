@@ -11,50 +11,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#faf7ed] flex flex-col items-center w-full">
-      {/* NAVIGATION HEADER */}
-      <header className="w-full bg-[#5B3DF6] flex items-center justify-between px-6 py-5">
-        {/* Logo with startup name */}
-        <div
-          className="flex items-center gap-3 cursor-pointer select-none"
-          onClick={() => router.push("/")}
-        >
-          <span className="inline-flex items-center justify-center p-1 rounded-full border-2 border-white shadow-md">
-            <Image
-              src="/logo2.jpeg"
-              alt="Brand Logo"
-              width={42}
-              height={42}
-              className="rounded-full "
-              priority
-            />
-          </span>
-          <span
-            className="text-white font-bold tracking-wider text-lg md:text-xl"
-            style={{
-              letterSpacing: "0.13em",
-              fontFamily: "'Montserrat', 'Inter', Arial, sans-serif",
-            }}
-          >
-            PASS IT ON
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-          {/* Desktop/Laptop: Profile icon */}
-          <motion.button
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
-            className="md:flex items-center justify-center bg-white hover:bg-[#E0D5FA] text-[#5B3DF6] rounded-full p-2 transition shadow "
-            style={{ width: 40, height: 40 }}
-            onClick={() => router.push("/dashboard")}
-            aria-label="Dashboard"
-          >
-            <User size={22} className="mx-auto my-auto" />
-          </motion.button>
-          <LogoutButton />
-        </div>
-      </header>
-
-      {/* Mobile: Profile icon above hero */}
 
       {/* HERO SECTION */}
       <section
@@ -69,20 +25,7 @@ export default function HomePage() {
             <span className="text-[#FFE158]">PASS</span> Karo,
             <span className="text-[#FFE158]"> EARN</span> Karo <br />
           </h1>
-          <div className="flex items-center mt-1">
-            {/* <div className="bg-[#faf7ed] rounded-full flex items-center px-5 py-[10px] w-full max-w-xs shadow-md">
-              <svg className="w-5 h-5 text-[#5B3DF6] mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                className="bg-transparent w-full outline-none text-base text-[#23185B] placeholder-[#23185B] font-medium"
-                placeholder="Search listings..."
-                type="text"
-              />
-            </div> */}
-          </div>
-          {/* BUTTON ROW under search bar */}
+
           <div className="flex gap-4 mt-2">
             <motion.button
               whileHover={{ scale: 1.06 }}
@@ -104,6 +47,7 @@ export default function HomePage() {
             </motion.button>
           </div>
         </div>
+
         <div className="flex-1 w-full flex justify-center items-center mt-8 md:mt-0">
           <Image
             src="/student-illustration.svg"
@@ -253,6 +197,7 @@ export default function HomePage() {
 
       {/* WISHLIST SECTION */}
       <motion.section
+        id="wishlist"
         className="w-full flex justify-center mt-10 px-4"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
