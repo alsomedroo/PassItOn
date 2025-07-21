@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { NavBar } from './NavBar';
 import Footer from './Footer';
 import SplashScreen from './SplashScreen';
+import { ClientNavBarWrapper } from './ClientNavBarWrapper';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const [showSplash, setShowSplash] = useState(true);
@@ -26,7 +27,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
 
   return (
     <>
-      <NavBar />
+      <ClientNavBarWrapper />
       <main>{children}</main>
       <Footer />
     </>

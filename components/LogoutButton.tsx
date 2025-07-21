@@ -12,7 +12,9 @@ export function LogoutButton() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("/api/auth/me");
+        const res = await fetch("/api/auth/me", {
+          credentials: "include", // ✅ Required to send cookies
+        });
         const data = await res.json();
         setLoggedIn(data.loggedIn);
       } catch (error) {
@@ -26,10 +28,14 @@ export function LogoutButton() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/auth/logout", { method: "POST" });
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include", // ✅ Also needed here
+      });
 
       if (res.ok) {
         window.location.href = "/";
+
       } else {
         alert("Failed to logout. Please try again.");
       }
@@ -40,10 +46,12 @@ export function LogoutButton() {
   };
 
   const handleLoginRedirect = () => {
-    router.push("/auth/login"); // 👈 Redirect to login page
+    
+    window.location.href = "/auth/login";
+
   };
 
-  if (loggedIn === null) return null; // Or show a spinner
+  if (loggedIn === null) return null; // Optionally show spinner here
 
   return (
     <motion.button

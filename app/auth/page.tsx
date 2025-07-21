@@ -73,7 +73,7 @@ export default function AuthPage() {
 
     if (res.ok) {
       setStatus('✅ Verified! Redirecting...');
-      setTimeout(() => router.push('/'), 1000);
+      setTimeout(() => window.location.href = "/", 1000);
     } else {
       setStatus(`❌ ${data.error}`);
     }

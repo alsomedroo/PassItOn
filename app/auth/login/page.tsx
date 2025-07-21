@@ -28,7 +28,7 @@ export default function LoginPage() {
     if (res.ok) {
       setStatus('✅ Logged in! Redirecting...');
       setTimeout(() => {
-        router.push('/');
+        window.location.href = "/";
       }, 1000);
     } else {
       setStatus(`❌ ${data.error}`);
