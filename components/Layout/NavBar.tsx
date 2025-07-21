@@ -28,6 +28,7 @@ export function NavBar() {
             priority
           />
         </span>
+
         <span
           className="text-[#5B3DF6] font-bold tracking-wider text-lg md:text-xl"
           style={{
@@ -36,6 +37,15 @@ export function NavBar() {
           }}
         >
           PASSITON
+        </span>
+        <span className="inline-flex items-center justify-center">
+          <Image
+            src="/startup_india.png"
+            alt="Brand Logo"
+            width={84}
+            height={84}
+            priority
+          />
         </span>
       </div>
       {/* Desktop: Profile + Logout */}

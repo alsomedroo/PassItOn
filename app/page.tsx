@@ -1,17 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Mail, PlusCircle, Compass, Heart } from "lucide-react";
-import { LogoutButton } from "@/components/LogoutButton";
+
 
 export default function HomePage() {
   const router = useRouter();
 
+
   return (
-    <div className="min-h-screen bg-[#faf7ed] flex flex-col items-center w-full">
+    
+      <div className="min-h-screen bg-[#faf7ed] flex flex-col items-center w-full">
       {/* HERO SECTION */}
       <section className="w-full flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 pt-10 pb-14 bg-gradient-to-br from-[#5B3DF6] via-[#755FF5] to-[#02afa5]">
         {/* Text Block */}
@@ -248,7 +249,7 @@ export default function HomePage() {
       </motion.section>
 
       {/* Footer */}
-      <footer className="w-full pb-7 flex flex-col items-center gap-2 text-[#736a6a] text-[13px] mt-10">
+      {/* <footer className="w-full pb-7 flex flex-col items-center gap-2 text-[#736a6a] text-[13px] mt-10">
         <motion.button
           whileHover={{ scale: 1.05, color: "#03B1AA" }}
           onClick={() => (window.location.href = "mailto:freakyakkmu@gmail.com")}
@@ -260,7 +261,9 @@ export default function HomePage() {
         <span className="text-xs">
           © 2025 Passion Writers. All rights reserved.
         </span>
-      </footer>
+      </footer> */}
     </div>
+    
+    
   );
 }

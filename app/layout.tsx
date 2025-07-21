@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { ClientNavBarWrapper } from "@/components/ClientNavBarWrapper";
+import { ClientNavBarWrapper } from "@/components/Layout/ClientNavBarWrapper";
+import Footer from "@/components/Layout/Footer";
+import { Suspense } from "react";
+import LayoutWrapper from "@/components/Layout/LayoutWrapper";
+import ClientOnly from "@/components/Layout/ClientOnly";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,14 +31,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body
-        style={{ fontFamily: 'Sora, sans-serif' }}
+        style={{ fontFamily: "Sora, sans-serif" }}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ClientNavBarWrapper />
-        {children}
+        <ClientOnly>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </ClientOnly>
       </body>
     </html>
   );

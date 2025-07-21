@@ -2,10 +2,13 @@
 
 /* rest of your CSS comes after */
 :root {
-  --background: #ffffff;
+  --background: #faf7ed;;
   --foreground: #171717;
   /* etc. */
 }
+
+
+
 
 .shimmer {
   position: relative;
