@@ -97,7 +97,7 @@ export default function AboutPage() {
           className="flex flex-col items-center lg:items-end w-full"
         >
           <p className="text-sm md:text-base text-[#7c689c] font-normal mb-2 text-center lg:text-right">
-            Powered & funded by
+          
           </p>
           <div className="flex items-center gap-3">
             <img
