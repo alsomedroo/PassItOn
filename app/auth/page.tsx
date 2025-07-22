@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import emailjs from "@emailjs/browser";
 import Image from 'next/image';
 import { MailCheck, LockKeyhole, KeyRound, Loader2 } from 'lucide-react';
 
@@ -18,46 +17,33 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
-  const handleSendOtp = async () => {
-    setLoading(true);
-    setStatus('');
-    setUserExists(false);
+ const handleSendOtp = async () => {
+  setLoading(true);
+  setStatus('');
+  setUserExists(false);
 
-    const res = await fetch('/api/auth/send-otp', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+  const res = await fetch('/api/auth/send-otp', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+    headers: { 'Content-Type': 'application/json' },
+  });
 
-    const data = await res.json();
+  const data = await res.json();
 
-    if (res.ok) {
-      try {
-        await emailjs.send(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-          {
-            to_email: email,
-            otp: data.otp,
-          },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-        );
-
-        setStatus('✅ OTP sent to your email');
-        setStep('verify');
-      } catch (err) {
-        setStatus('❌ Failed to send OTP email');
-      }
-    } else {
-      setStatus(`❌ ${data.error}`);
-      if (data.userExists) {
-        setUserExists(true);
-        setTimeout(() => router.push('/auth/login'), 2000);
-      }
+  if (res.ok) {
+    setStatus('✅ OTP sent to your email');
+    setStep('verify');
+  } else {
+    setStatus(`❌ ${data.error}`);
+    if (data.userExists) {
+      setUserExists(true);
+      setTimeout(() => router.push('/auth/login'), 2000);
     }
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
+
 
   const handleVerifyOtp = async () => {
     setLoading(true);
