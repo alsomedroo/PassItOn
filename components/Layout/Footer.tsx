@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Users, Info, Linkedin, Twitter, Instagram } from "lucide-react";
+import { Mail, Users, Info, Linkedin, Twitter, Instagram, MessageCircle, MessageCircleDashedIcon } from "lucide-react";
+import { Chathura } from "next/font/google";
 import Image from "next/image";
 
 const Footer = () => (
@@ -32,12 +33,14 @@ const Footer = () => (
       {/* Team */}
       <div className="flex flex-col gap-2 w-full md:w-1/5 items-center text-center">
         <span className="font-bold text-white flex items-center justify-center gap-2">
-          <Users size={18} /> Team
+          <Users size={18} /> <a href="/about" className="hover:text-[#03B1AA] transition">
+            Team
+          </a>
         </span>
         <span className="text-white/80 text-sm">
           Meet our team of enthusiastic innovators, mentors, and literary
           experts. <br />
-          <a href="/team" className="underline hover:text-[#03B1AA] transition">
+          <a href="/about" className="underline hover:text-[#03B1AA] transition">
             Learn More
           </a>
         </span>
@@ -63,7 +66,7 @@ const Footer = () => (
         </motion.button>
         <div className="flex gap-3 mt-2 justify-center">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/dhruv-jain-79617a305/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-[#e5e5e5]"
@@ -71,15 +74,15 @@ const Footer = () => (
             <Linkedin size={22} />
           </a>
           <a
-            href="https://twitter.com"
+            href="https://chat.whatsapp.com/L9kdlV8J0liJ2Ve04j69Mc?mode=ac_t"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-[#e5e5e5]"
           >
-            <Twitter size={22} />
+            <MessageCircle size={22} />
           </a>
           <a
-            href="https://twitter.com"
+            href="https://www.instagram.com/passiton.cash?igsh=MTFqbTJsaWNlejMxcA=="
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-[#e5e5e5]"

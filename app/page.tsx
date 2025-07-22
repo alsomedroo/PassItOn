@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Mail, PlusCircle, Compass, Heart } from "lucide-react";
+import Feedback from "../components/FeedbackForm";
 
 
 export default function HomePage() {
@@ -262,6 +263,9 @@ export default function HomePage() {
           © 2025 Passion Writers. All rights reserved.
         </span>
       </footer> */}
+      <div className="h-10"></div>
+      <Feedback/>
+      <div className="h-10"></div>
     </div>
     
     
