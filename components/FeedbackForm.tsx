@@ -45,7 +45,7 @@ export default function FeedbackForm() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="max-w-2xl w-full mx-auto bg-[#ffefa9] rounded-3xl p-8 shadow-lg flex flex-col gap-6
+      className="max-w-2xl w-full mx-auto bg-[#fff9e8] rounded-3xl p-8 shadow-lg flex flex-col gap-6
                  sm:p-10 md:flex-row md:gap-12"
     >
       {/* Left Side: info & icon */}

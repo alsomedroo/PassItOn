@@ -6,14 +6,11 @@ import Image from "next/image";
 import { Mail, PlusCircle, Compass, Heart } from "lucide-react";
 import Feedback from "../components/FeedbackForm";
 
-
 export default function HomePage() {
   const router = useRouter();
 
-
   return (
-    
-      <div className="min-h-screen bg-[#faf7ed] flex flex-col items-center w-full">
+    <div className="min-h-screen bg-[#faf7ed] flex flex-col items-center w-full">
       {/* HERO SECTION */}
       <section className="w-full flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 pt-10 pb-14 bg-gradient-to-br from-[#5B3DF6] via-[#755FF5] to-[#02afa5]">
         {/* Text Block */}
@@ -88,7 +85,11 @@ export default function HomePage() {
               { img: "/icons/book.png", label: "Textbooks", price: "$15" },
               { img: "/coset.jpg", label: "Co-Set", price: "₹700" },
               { img: "/laptop.jpg", label: "Laptop", price: "₹10000" },
-              { img: "/icons/headphones.png", label: "Headphones", price: "$30" },
+              {
+                img: "/icons/headphones.png",
+                label: "Headphones",
+                price: "$30",
+              },
             ].map((item, index) => (
               <div
                 key={index}
@@ -143,12 +144,19 @@ export default function HomePage() {
                 className="flex flex-col items-center text-center flex-1"
               >
                 <div className={`${step.color} p-3 rounded-full mb-2`}>
-                  <Image src={step.icon} alt={step.title} width={38} height={38} />
+                  <Image
+                    src={step.icon}
+                    alt={step.title}
+                    width={38}
+                    height={38}
+                  />
                 </div>
                 <div className="font-bold text-[#23185B] mb-1 text-base sm:text-lg">
                   {step.title}
                 </div>
-                <div className="text-[#23185B] text-sm font-medium">{step.desc}</div>
+                <div className="text-[#23185B] text-sm font-medium">
+                  {step.desc}
+                </div>
               </div>
             ))}
           </div>
@@ -249,25 +257,23 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Footer */}
-      {/* <footer className="w-full pb-7 flex flex-col items-center gap-2 text-[#736a6a] text-[13px] mt-10">
-        <motion.button
-          whileHover={{ scale: 1.05, color: "#03B1AA" }}
-          onClick={() => (window.location.href = "mailto:freakyakkmu@gmail.com")}
-          className="flex items-center gap-2 text-[#5B3DF6] font-semibold mt-2 transition-colors"
-        >
-          <Mail size={18} />
-          Contact Us
-        </motion.button>
-        <span className="text-xs">
-          © 2025 Passion Writers. All rights reserved.
-        </span>
-      </footer> */}
       <div className="h-10"></div>
+
+      <a
+  href="/feedback"
+  className="text-sm font-semibold tracking-wide underline underline-offset-4 text-transparent bg-clip-text bg-gradient-to-r from-[#02afa5] via-[#5B3DF6] to-[#755FF5] hover:brightness-125 hover:scale-105 transition-all duration-200 ease-in-out"
+>
+  Feedback?
+</a>
+
+
+      {/* Footer */}
+
+      {/* <div className="h-10"></div>
       <Feedback/>
+      <div className="h-10"></div> */}
+
       <div className="h-10"></div>
     </div>
-    
-    
   );
 }

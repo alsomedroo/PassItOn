@@ -45,6 +45,7 @@ const Footer = () => (
           </a>
         </span>
       </div>
+      
 
       {/* Contact & Social */}
       <div className="flex flex-col gap-4 w-full md:w-1/4 items-center text-center">
@@ -64,6 +65,10 @@ const Footer = () => (
           <Mail size={18} />
           Contact Us
         </motion.button>
+
+          
+
+
         <div className="flex gap-3 mt-2 justify-center">
           <a
             href="https://www.linkedin.com/company/pass-it-on-%E2%80%93-pass-karo-earn-karo/"
@@ -90,8 +95,13 @@ const Footer = () => (
             <Instagram size={22} />
           </a>
         </div>
+     
+
       </div>
+      
+
     </div>
+    
     <div className="border-t border-[#ded7ff]/30 mt-10 pt-4 text-center">
       <span className="text-xs text-white/80">
         © 2025 <b>Passion Writers</b>. All rights reserved <br></br> Powered By Quantum Leap Systems LLP
