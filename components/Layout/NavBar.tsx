@@ -18,9 +18,9 @@ export function NavBar() {
         className="flex items-center gap-3 cursor-pointer select-none"
         onClick={() => router.push("/")}
       >
-        <span className="inline-flex items-center justify-center p-1 rounded-full border-2 border-[#5B3DF6] shadow-md">
+        <span className="inline-flex items-center justify-center p-1 rounded-full shadow-md">
           <Image
-            src="/logo2.jpeg"
+            src="/logo3.jpeg"
             alt="Brand Logo"
             width={42}
             height={42}

@@ -22,7 +22,7 @@ const team = [
   {
     name: "Devansh Rana",
     role: "Co-founder & COO",
-    image: "/team/devanshrana.jpeg",
+    image: "/team/Devanshrana.jpeg",
   },
   {
     name: "Sudhanshu Gill",
@@ -32,12 +32,12 @@ const team = [
   {
     name: "Vikrant Baliyan",
     role: "Community Head",
-    image: "/team/vikrant.jpeg",
+    image: "/team/Vikrant.jpeg",
   },
   {
     name: "Akhilesh Chahar",
     role: "Marketing Lead",
-    image: "/team/akhilesh.jpeg",
+    image: "/team/Akhilesh.jpeg",
   },
 ];
 

@@ -52,9 +52,9 @@ export default function LoginPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-block bg-[#FFE158] p-3 rounded-full shadow-lg border-4 border-white">
+          <span className="inline-block rounded-full shadow-lg border-4 border-white">
             <Image
-              src="/logo2.jpeg"
+              src="/logo3.jpeg"
               alt="Site Logo"
               width={100}
               height={100}
