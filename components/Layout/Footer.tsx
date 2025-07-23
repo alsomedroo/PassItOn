@@ -66,7 +66,7 @@ const Footer = () => (
         </motion.button>
         <div className="flex gap-3 mt-2 justify-center">
           <a
-            href="https://www.linkedin.com/in/dhruv-jain-79617a305/"
+            href="https://www.linkedin.com/company/pass-it-on-%E2%80%93-pass-karo-earn-karo/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-[#e5e5e5]"
