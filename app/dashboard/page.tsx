@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { CheckCircle, XCircle, Loader2, Eye, Heart } from 'lucide-react';
-import { UserInfoCard } from '@/components/UserInfoCard';
+import UserInfoCard from '@/components/UserInfoCard';
 
 type Product = {
   _id: string;
@@ -59,6 +59,7 @@ export default function DashboardPage() {
         Dashboard
       </motion.h1>
       <UserInfoCard />
+      <div className='h-10'></div>
       <div className="w-full max-w-5xl bg-white/90 rounded-3xl shadow-2xl border-2 border-[#E0D5FA] p-8 flex flex-col">
         <h2 className="text-xl font-bold text-[#23185B] mb-5">My Listings</h2>
         {loading ? (
