@@ -82,13 +82,13 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
-              { img: "/icons/book.png", label: "Textbooks", price: "$15" },
+              { img: "/icons/book.png", label: "Textbooks", price: "₹200" },
               { img: "/coset.jpg", label: "Co-Set", price: "₹700" },
               { img: "/laptop.jpg", label: "Laptop", price: "₹10000" },
               {
                 img: "/icons/headphones.png",
                 label: "Headphones",
-                price: "$30",
+                price: "₹1000",
               },
             ].map((item, index) => (
               <div
