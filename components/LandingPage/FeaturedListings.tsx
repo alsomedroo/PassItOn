@@ -2,10 +2,10 @@ import Image from "next/image";
 
 export default function FeaturedListings() {
   const items = [
-    { img: "/icons/book.png", label: "Textbooks", price: "₹200" },
-    { img: "/coset.jpg", label: "Co-Set", price: "₹600" },
-    { img: "/laptop.jpg", label: "Laptop", price: "₹10000" },
-    { img: "/icons/headphones.png", label: "Headphones", price: "₹400" },
+    { img: "/icons/book.png", label: "Textbooks", price: "₹199" },
+    { img: "/coset.jpg", label: "Co-Set", price: "₹599" },
+    { img: "/laptop.jpg", label: "Laptop", price: "₹7999" },
+    { img: "/icons/headphones.png", label: "Headphones", price: "₹399" },
   ];
 
   return (
