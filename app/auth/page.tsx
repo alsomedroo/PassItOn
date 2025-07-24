@@ -4,46 +4,52 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { MailCheck, LockKeyhole, KeyRound, Loader2 } from 'lucide-react';
+import { MailCheck, LockKeyhole, KeyRound, UserRound, UserCircle, Loader2 } from 'lucide-react';
 
 export default function AuthPage() {
   const router = useRouter();
-
   const [step, setStep] = useState<'signup' | 'verify'>('signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
   const [otp, setOtp] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
- const handleSendOtp = async () => {
-  setLoading(true);
-  setStatus('');
-  setUserExists(false);
+  const handleSendOtp = async () => {
+    setLoading(true);
+    setStatus('');
+    setUserExists(false);
 
-  const res = await fetch('/api/auth/send-otp', {
-    method: 'POST',
-    body: JSON.stringify({ email }),
-    headers: { 'Content-Type': 'application/json' },
-  });
-
-  const data = await res.json();
-
-  if (res.ok) {
-    setStatus('✅ OTP sent to your email');
-    setStep('verify');
-  } else {
-    setStatus(`❌ ${data.error}`);
-    if (data.userExists) {
-      setUserExists(true);
-      setTimeout(() => router.push('/auth/login'), 2000);
+    if (!email || !password || !fullName || !username) {
+      setStatus('❌ All fields required.');
+      setLoading(false);
+      return;
     }
-  }
 
-  setLoading(false);
-};
+    const res = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+      headers: { 'Content-Type': 'application/json' },
+    });
 
+    const data = await res.json();
+
+    if (res.ok) {
+      setStatus('✅ OTP sent to your email');
+      setStep('verify');
+    } else {
+      setStatus(`❌ ${data.error}`);
+      if (data.userExists) {
+        setUserExists(true);
+        setTimeout(() => router.push('/auth/login'), 2000);
+      }
+    }
+
+    setLoading(false);
+  };
 
   const handleVerifyOtp = async () => {
     setLoading(true);
@@ -51,7 +57,7 @@ export default function AuthPage() {
 
     const res = await fetch('/api/auth/verify-otp', {
       method: 'POST',
-      body: JSON.stringify({ email, password, otp }),
+      body: JSON.stringify({ email, password, otp, fullName, username }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -75,7 +81,7 @@ export default function AuthPage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
       >
-        {/* Bubbly avatar with little shine */}
+        {/* Avatar */}
         <motion.div
           className="mb-5"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -92,26 +98,18 @@ export default function AuthPage() {
             />
           </span>
         </motion.div>
-
         {/* Headline */}
         <h2 className="text-2xl font-extrabold text-[#5B3DF6] mb-2 tracking-wide text-center flex gap-2 items-center">
-          {step === 'signup'
-            ? (
-                <>
-                  <MailCheck size={22} className="text-[#5B3DF6]" />
-                  Sign Up with OTP
-                </>
-              )
-            : (
-                <>
-                  <KeyRound size={20} className="text-[#22C55E]" />
-                  Enter OTP
-                </>
-              )
-          }
+          {step === 'signup' ? <>
+            <MailCheck size={22} className="text-[#5B3DF6]" />
+            Sign Up with OTP
+          </> : <>
+            <KeyRound size={20} className="text-[#22C55E]" />
+            Enter OTP
+          </>}
         </h2>
 
-        {/* Email */}
+        {/* EMAIL */}
         <div className="w-full mb-3">
           <div className="relative">
             <input
@@ -126,8 +124,38 @@ export default function AuthPage() {
             <MailCheck size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8e79df]" />
           </div>
         </div>
-
-        {/* Password or OTP */}
+        {/* FULL NAME & USERNAME */}
+        {step === 'signup' && (
+          <>
+            <div className="w-full mb-3">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={fullName}
+                  onChange={e => setFullName(e.target.value)}
+                  autoComplete="name"
+                  className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+                />
+                <UserRound size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-400" />
+              </div>
+            </div>
+            <div className="w-full mb-3">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  autoComplete="username"
+                  className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+                />
+                <UserCircle size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-fuchsia-500" />
+              </div>
+            </div>
+          </>
+        )}
+        {/* PASSWORD or OTP */}
         {step === 'signup' ? (
           <div className="w-full mb-3">
             <div className="relative">
@@ -158,7 +186,6 @@ export default function AuthPage() {
             </div>
           </div>
         )}
-
         {/* Action Button */}
         <motion.button
           onClick={step === 'signup' ? handleSendOtp : handleVerifyOtp}
@@ -178,7 +205,7 @@ export default function AuthPage() {
           {step === 'signup' ? 'Send OTP' : 'Verify & Sign Up'}
         </motion.button>
 
-        {/* Animated status feedback */}
+        {/* Status Feedback */}
         {status && (
           <motion.p
             className={`

@@ -5,18 +5,28 @@ import { User } from '@/models/User';
 
 export async function POST(req: Request) {
   await connectToDatabase();
-  const { email } = await req.json();
+  const { email, mode = "signup" } = await req.json();
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return NextResponse.json(
-      { error: 'User already registered. Please log in.', userExists: true },
-      { status: 400 }
-    );
+  if (mode === "signup") {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'User already registered. Please log in.', userExists: true },
+        { status: 400 }
+      );
+    }
+  } else if (mode === "reset") {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return NextResponse.json(
+        { error: 'User not found.' },
+        { status: 400 }
+      );
+    }
   }
 
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
 
   await Otp.findOneAndUpdate(
     { email },
@@ -25,6 +35,7 @@ export async function POST(req: Request) {
   );
 
   const MSG91_API = 'https://control.msg91.com/api/v5/email/send';
+
   const {
     MSG91_AUTHKEY,
     MSG91_TEMPLATE_ID,
@@ -69,7 +80,7 @@ export async function POST(req: Request) {
     authkey: MSG91_AUTHKEY!,
   };
 
-   console.log('Sending MSG91 email:', JSON.stringify(body, null, 2));
+  console.log('Sending MSG91 email:', JSON.stringify(body, null, 2));
 
   const msgRes = await fetch(MSG91_API, {
     method: 'POST',
@@ -78,6 +89,7 @@ export async function POST(req: Request) {
   });
 
   const msgJson = await msgRes.json();
+
   console.log('MSG91 response:', msgJson);
 
   if (!msgRes.ok) {
