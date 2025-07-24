@@ -3,7 +3,7 @@ import { jwtVerify } from 'jose';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret-key';
 if (JWT_SECRET === 'secret-key' && process.env.NODE_ENV === 'production') {
-  console.warn('⚠️  Using default JWT secret in production!');
+  //console.warn('⚠️  Using default JWT secret in production!');
 }
 
 async function verifyJWT(token: string) {

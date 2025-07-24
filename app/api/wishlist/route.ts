@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const wish = await Wishlist.create({ item, phone, details });
     return NextResponse.json({ success: true, wish });
   } catch (error) {
-    console.error('Error saving wish:', error);
+    //console.error('Error saving wish:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

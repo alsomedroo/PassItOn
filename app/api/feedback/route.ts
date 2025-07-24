@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Feedback submission error:", error);
+    //console.error("Feedback submission error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

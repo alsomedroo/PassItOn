@@ -18,7 +18,7 @@ export function LogoutButton() {
         const data = await res.json();
         setLoggedIn(data.loggedIn);
       } catch (error) {
-        console.error("Auth check failed:", error);
+        //console.error("Auth check failed:", error);
         setLoggedIn(false);
       }
     };
@@ -40,7 +40,7 @@ export function LogoutButton() {
         alert("Failed to logout. Please try again.");
       }
     } catch (error) {
-      console.error("Logout error:", error);
+      //console.error("Logout error:", error);
       alert("Something went wrong during logout.");
     }
   };

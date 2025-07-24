@@ -28,7 +28,7 @@ const categoryColor = (cat: string) => {
 };
 
 export function ProductCard({ product }: Props) {
-  console.log(product); // Debug: show product details
+  //console.log(product); // Debug: show product details
   return (
     //<div style={{display: 'none'}}>{JSON.stringify(product)}</div>
     <Link href={`/product/${product._id}`} prefetch={false}>

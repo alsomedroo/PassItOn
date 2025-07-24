@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     !MSG91_VARIABLE_COMPANY_NAME ||
     !MSG91_COMPANY_NAME
   ) {
-    console.error('Missing MSG91 configuration in .env');
+    //console.error('Missing MSG91 configuration in .env');
     return NextResponse.json({ error: 'Missing MSG91 config' }, { status: 500 });
   }
 
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
     authkey: MSG91_AUTHKEY!,
   };
 
-  console.log('Sending MSG91 email:', JSON.stringify(body, null, 2));
+  //console.log('Sending MSG91 email:', JSON.stringify(body, null, 2));
 
   const msgRes = await fetch(MSG91_API, {
     method: 'POST',
@@ -78,10 +78,10 @@ export async function POST(req: Request) {
 
   const msgJson = await msgRes.json();
 
-  console.log('MSG91 response:', msgJson);
+  //console.log('MSG91 response:', msgJson);
 
   if (!msgRes.ok) {
-    console.error('MSG91 Error:', msgJson);
+    //console.error('MSG91 Error:', msgJson);
     return NextResponse.json({ error: 'Failed to send OTP' }, { status: 500 });
   }
 
