@@ -52,10 +52,15 @@ export default function AboutPage() {
         className="flex flex-col items-center mb-7"
       >
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#5B3DF6] text-center mb-4 drop-shadow">
-          Meet Our Team <span className="block text-lg font-medium text-[#a78bfa]">PassItOn Startup</span>
+          Meet Our Team{" "}
+          <span className="block text-lg font-medium text-[#a78bfa]">
+            PassItOn Startup
+          </span>
         </h1>
         <p className="text-base sm:text-lg text-[#7c689c] max-w-2xl text-center">
-          We are a group of passionate students, creators, and innovators on a mission to redefine campus commerce with trust, transparency and community.
+          We are a group of passionate students, creators, and innovators on a
+          mission to redefine campus commerce with trust, transparency and
+          community.
         </p>
       </motion.div>
 
@@ -81,8 +86,12 @@ export default function AboutPage() {
                 className="object-cover w-full h-full group-hover:scale-105 transition"
               />
             </div>
-            <div className="text-xl font-extrabold text-[#23185B]">{member.name}</div>
-            <div className="text-base font-semibold text-[#5B3DF6]/90">{member.role}</div>
+            <div className="text-xl font-extrabold text-[#23185B]">
+              {member.name}
+            </div>
+            <div className="text-base font-semibold text-[#5B3DF6]/90">
+              {member.role}
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -96,16 +105,11 @@ export default function AboutPage() {
           transition={{ delay: 0.3 }}
           className="flex flex-col items-center lg:items-end w-full"
         >
-          <p className="text-sm md:text-base text-[#7c689c] font-normal mb-2 text-center lg:text-right">
-          
-          </p>
-          <div className="flex items-center gap-3">
-            <img
-              src="/company-logo.png"
-              alt="Company Logo"
-              className="h-10 w-auto rounded shadow bg-white border border-[#E0D5FA]"
-            />
-            <div className="text-lg font-bold text-[#5B3DF6]">Powered By Quantum Leap Systems LLP.</div>
+          <p className="text-sm md:text-base text-[#7c689c] font-normal mb-2 text-center lg:text-right"></p>
+          <div className="flex justify-center items-center">
+            <div className="text-lg font-bold text-[#5B3DF6] text-start">
+              Powered By Quantum Leap Systems LLP.
+            </div>
           </div>
         </motion.div>
         {/* Startup India Logo */}
@@ -114,13 +118,11 @@ export default function AboutPage() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.34 }}
           className="flex flex-col items-center w-full"
-          
         >
           <p className="text-sm md:text-base text-[#7c689c] font-normal mb-2 text-center">
             Recognised By
           </p>
           <img
-            
             src="/startup_india.png"
             alt="Startup India"
             className="h-36 w-auto drop-shadow"

@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { User, Menu, X } from "lucide-react";
+import { User, Menu, X, House } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 
 export function NavBar() {
@@ -85,6 +85,34 @@ export function NavBar() {
               <X size={24} />
             </button>
             <div className="flex flex-col items-center gap-6 mt-10">
+              <motion.button
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  setMenuOpen(false);
+                  router.push("/");
+                }}
+                type="button"
+                className="
+        flex items-center gap-2
+        px-5 py-2
+        rounded-full
+        bg-white
+        text-[#5B3DF6]
+        font-semibold
+        shadow-md
+        transition
+        hover:bg-[#ffe158]
+        hover:text-[#23185B]
+        focus:outline-none
+        focus:ring-2 focus:ring-offset-2 focus:ring-[#5B3DF6]
+        text-base
+      "
+                title="Home"
+              >
+                <House size={26} />
+                Home
+              </motion.button>
               <button
                 className="flex items-center gap-2 bg-[#5B3DF6] hover:bg-[#755FF5] text-white rounded-full px-5 py-3 transition shadow"
                 style={{ minWidth: 48 }}
@@ -98,6 +126,17 @@ export function NavBar() {
                 <span className="font-semibold text-base">Profile</span>
               </button>
               <LogoutButton />
+              <button
+                className="flex items-center gap-2 bg-[#5B3DF6] hover:bg-[#755FF5] text-white rounded-full px-5 py-3 transition shadow"
+                style={{ minWidth: 48 }}
+                onClick={() => {
+                  setMenuOpen(false);
+                  router.push("/about");
+                }}
+                aria-label="Team"
+              >
+                <span className="font-semibold text-base">About Us</span>
+              </button>
             </div>
           </div>
           {/* Click outside to close */}
