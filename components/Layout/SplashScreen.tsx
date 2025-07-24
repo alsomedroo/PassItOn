@@ -13,7 +13,7 @@ export default function SplashScreen({
     const timeout = setTimeout(() => {
       setShow(false);
       onComplete();
-    }, 3000); // 3 seconds splash
+    }, 1300);
 
     return () => clearTimeout(timeout);
   }, []);
