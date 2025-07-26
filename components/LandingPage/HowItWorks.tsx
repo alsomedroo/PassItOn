@@ -9,17 +9,17 @@ export default function HowItWorks() {
     },
     {
       title: "List Your Items",
-      icon: "/icons/list.png",
+      icon: "/icons/upload.png",
       desc: "Snap a photo, set your price, and make your items available in minutes. It’s as easy as posting to social media.",
     },
     {
       title: "Connect & Chat",
-      icon: "/icons/connect.png",
+      icon: "/icons/network.png",
       desc: "Message with interested students securely. Arrange meetups right on or around campus.",
     },
     {
       title: "Meet & Exchange",
-      icon: "/footstep.png",
+      icon: "/icons/handshake.png",
       desc: "Finalize your exchange safely and conveniently. Walk away with cash and a smile!",
     },
   ];
