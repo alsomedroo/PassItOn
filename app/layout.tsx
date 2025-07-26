@@ -18,9 +18,47 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pass It On",
-  description: "By PassionWriters",
+  title: "Pass It On – Student Marketplace",
+  description:
+    "Pass It On is a student marketplace for college students to buy, sell, and exchange items easily and securely. Built by students, for students.",
+  keywords: [
+    "student marketplace",
+    "buy college items",
+    "sell textbooks",
+    "Pass It On",
+    "college resale platform",
+    "Kiet Group Of Institutions",
+    "used laptops",
+    "used gadgets",
+    "student deals",
+  ],
+  openGraph: {
+    title: "Pass It On – Pass Karo Earn Karo",
+    description:
+      "Buy & sell items within your college. Easy, fast, and secure.",
+    url: "https://www.passiton.cash",
+    siteName: "Pass It On",
+    images: [
+      {
+        url: "https://www.passiton.cash/_next/image?url=%2Flogo3.jpeg&w=96&q=75", // Replace with your actual OG image URL
+        width: 1200,
+        height: 630,
+        alt: "Pass It On - Buy & Sell in College",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pass It On – Student Marketplace",
+    description:
+      "Buy and sell your college items securely. Built by students, for students.",
+    images: ["	https://www.passiton.cash/_next/image?url=%2Flogo3.jpeg&w=96&q=75"],
+    creator: "@passiton.cash",
+  },
+  metadataBase: new URL("https://www.passiton.cash"),
 };
+
 
 export default function RootLayout({
   children,
@@ -35,6 +73,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
+        <link rel="canonical" href="https://www.passiton.cash" />
       </head>
       <body
         style={{ fontFamily: "Sora, sans-serif" }}
