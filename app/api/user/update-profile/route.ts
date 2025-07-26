@@ -1,3 +1,4 @@
+// /app/api/user/profile/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { connectToDatabase } from '@/lib/db';
@@ -18,9 +19,9 @@ export async function PUT(req: NextRequest) {
   }
 
   const userId = decoded._id || decoded.userId;
-  const { fullName, username } = await req.json();
+  const { fullName, username, collegeIdUrl } = await req.json();
 
-  if (!fullName && !username) {
+  if (!fullName && !username && !collegeIdUrl) {
     return NextResponse.json({ error: 'No updates provided' }, { status: 400 });
   }
 
@@ -36,7 +37,11 @@ export async function PUT(req: NextRequest) {
   try {
     const user = await User.findByIdAndUpdate(
       userId,
-      { ...(fullName && { fullName }), ...(username && { username }) },
+      {
+        ...(fullName && { fullName }),
+        ...(username && { username }),
+        ...(collegeIdUrl && { collegeIdUrl }),
+      },
       { new: true }
     );
 
@@ -50,6 +55,7 @@ export async function PUT(req: NextRequest) {
         fullName: user.fullName,
         username: user.username,
         email: user.email,
+        collegeIdUrl: user.collegeIdUrl,
         userId: user._id,
       },
     });

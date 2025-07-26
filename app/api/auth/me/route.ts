@@ -22,6 +22,8 @@ export async function GET(req: NextRequest) {
         email: user.email,
         username: user.username,
         fullName: user.fullName,
+        collegeIdUrl: user.collegeIdUrl,
+        verified: user.verified,
       },
     });
   } catch {

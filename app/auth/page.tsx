@@ -1,10 +1,18 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { MailCheck, LockKeyhole, KeyRound, UserRound, UserCircle, Loader2 } from 'lucide-react';
+import {
+  MailCheck,
+  LockKeyhole,
+  KeyRound,
+  UserRound,
+  UserCircle,
+  Loader2,
+  UploadCloud,
+} from 'lucide-react';
 
 export default function AuthPage() {
   const router = useRouter();
@@ -17,21 +25,23 @@ export default function AuthPage() {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [userExists, setUserExists] = useState(false);
+  const [collegeIdUrl, setCollegeIdUrl] = useState('');
+  const [uploadingId, setUploadingId] = useState(false);
 
   const handleSendOtp = async () => {
     setLoading(true);
     setStatus('');
     setUserExists(false);
 
-    if (!email || !password || !fullName || !username) {
-      setStatus('❌ All fields required.');
+    if (!email || !password || !fullName || !username || !collegeIdUrl) {
+      setStatus('❌ All fields including ID are required.');
       setLoading(false);
       return;
     }
 
     const res = await fetch('/api/auth/send-otp', {
       method: 'POST',
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, username }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -57,7 +67,14 @@ export default function AuthPage() {
 
     const res = await fetch('/api/auth/verify-otp', {
       method: 'POST',
-      body: JSON.stringify({ email, password, otp, fullName, username }),
+      body: JSON.stringify({
+        email,
+        password,
+        otp,
+        fullName,
+        username,
+        collegeIdUrl,
+      }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -65,12 +82,39 @@ export default function AuthPage() {
 
     if (res.ok) {
       setStatus('✅ Verified! Redirecting...');
-      setTimeout(() => window.location.href = "/", 1000);
+      setTimeout(() => (window.location.href = '/'), 1000);
     } else {
       setStatus(`❌ ${data.error}`);
     }
 
     setLoading(false);
+  };
+
+  const handleCollegeIdUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingId(true);
+    setStatus('Uploading College ID...');
+
+    const form = new FormData();
+    form.append('file', file);
+
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: form,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      setCollegeIdUrl(data.secure_url);
+      setStatus('✅ College ID uploaded');
+    } else {
+      setStatus('❌ Failed to upload ID');
+    }
+
+    setUploadingId(false);
   };
 
   return (
@@ -81,7 +125,6 @@ export default function AuthPage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
       >
-        {/* Avatar */}
         <motion.div
           className="mb-5"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -98,126 +141,140 @@ export default function AuthPage() {
             />
           </span>
         </motion.div>
-        {/* Headline */}
+
         <h2 className="text-2xl font-extrabold text-[#5B3DF6] mb-2 tracking-wide text-center flex gap-2 items-center">
-          {step === 'signup' ? <>
-            <MailCheck size={22} className="text-[#5B3DF6]" />
-            Sign Up with OTP
-          </> : <>
-            <KeyRound size={20} className="text-[#22C55E]" />
-            Enter OTP
-          </>}
+          {step === 'signup' ? (
+            <>
+              <MailCheck size={22} />
+              Sign Up with OTP
+            </>
+          ) : (
+            <>
+              <KeyRound size={20} className="text-[#22C55E]" />
+              Enter OTP
+            </>
+          )}
         </h2>
 
         {/* EMAIL */}
-        <div className="w-full mb-3">
-          <div className="relative">
-            <input
-              type="email"
-              placeholder="Your student email"
-              value={email}
-              disabled={step === 'verify'}
-              onChange={e => setEmail(e.target.value)}
-              autoComplete="username"
-              className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-[#5B3DF6] focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
-            />
-            <MailCheck size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8e79df]" />
-          </div>
+        <div className="w-full mb-3 relative">
+          <input
+            type="email"
+            placeholder="Your student email"
+            value={email}
+            disabled={step === 'verify'}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="username"
+            className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-[#5B3DF6] focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+          />
+          <MailCheck size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8e79df]" />
         </div>
-        {/* FULL NAME & USERNAME */}
+
         {step === 'signup' && (
           <>
-            <div className="w-full mb-3">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  value={fullName}
-                  onChange={e => setFullName(e.target.value)}
-                  autoComplete="name"
-                  className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
-                />
-                <UserRound size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-400" />
-              </div>
+            {/* FULL NAME */}
+            <div className="w-full mb-3 relative">
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+              />
+              <UserRound size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-400" />
             </div>
-            <div className="w-full mb-3">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                  autoComplete="username"
-                  className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
-                />
-                <UserCircle size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-fuchsia-500" />
-              </div>
+
+            {/* USERNAME */}
+            <div className="w-full mb-3 relative">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+                className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-blue-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+              />
+              <UserCircle size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-fuchsia-500" />
             </div>
-          </>
-        )}
-        {/* PASSWORD or OTP */}
-        {step === 'signup' ? (
-          <div className="w-full mb-3">
-            <div className="relative">
+
+            {/* PASSWORD */}
+            <div className="w-full mb-3 relative">
               <input
                 type="password"
                 placeholder="Set a password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
                 className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-pink-300 focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
               />
               <LockKeyhole size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-400" />
             </div>
-          </div>
-        ) : (
-          <div className="w-full mb-3">
-            <div className="relative">
+
+            {/* COLLEGE ID UPLOAD */}
+            <div className="w-full mb-4">
+              <label className="text-sm font-semibold text-[#5B3DF6] mb-1 block">
+                Upload College ID Card (Required)
+              </label>
               <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={e => setOtp(e.target.value)}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-[#22C55E] focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+                type="file"
+                accept="image/*"
+                onChange={handleCollegeIdUpload}
+                disabled={uploadingId}
+                className="w-full px-5 py-2 bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] rounded-full shadow file:font-bold file:px-4 file:py-2 cursor-pointer"
               />
-              <KeyRound size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#22C55E]" />
+              {collegeIdUrl && (
+                <img
+                  src={collegeIdUrl}
+                  alt="College ID"
+                  className="mt-2 h-24 object-contain rounded-xl border border-[#ddd] shadow"
+                />
+              )}
             </div>
+          </>
+        )}
+
+        {/* OTP INPUT */}
+        {step === 'verify' && (
+          <div className="w-full mb-3 relative">
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              className="w-full px-5 py-4 rounded-full bg-[#faf7ed] border-2 border-[#E0D5FA] text-[#23185B] focus:ring-2 focus:ring-[#22C55E] focus:outline-none text-base shadow placeholder-[#a78bfa] font-semibold transition pr-10"
+            />
+            <KeyRound size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#22C55E]" />
           </div>
         )}
-        {/* Action Button */}
+
+        {/* ACTION BUTTON */}
         <motion.button
           onClick={step === 'signup' ? handleSendOtp : handleVerifyOtp}
-          disabled={loading}
+          disabled={loading || uploadingId}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className={`w-full py-4 mt-1 rounded-full font-bold tracking-wide 
-            transition-all shadow-lg flex items-center justify-center gap-2
-            ${
-              step === 'signup'
-                ? "bg-[#5B3DF6] hover:bg-[#6C4AB6] text-white"
-                : "bg-[#22C55E] hover:bg-[#16a34a] text-white"
-            }
-            disabled:opacity-60`}
+          className={`w-full py-4 mt-1 rounded-full font-bold tracking-wide transition-all shadow-lg flex items-center justify-center gap-2 ${
+            step === 'signup'
+              ? 'bg-[#5B3DF6] hover:bg-[#6C4AB6] text-white'
+              : 'bg-[#22C55E] hover:bg-[#16a34a] text-white'
+          } disabled:opacity-60`}
         >
           {loading && <Loader2 size={18} className="animate-spin" />}
           {step === 'signup' ? 'Send OTP' : 'Verify & Sign Up'}
         </motion.button>
 
-        {/* Status Feedback */}
+        {/* STATUS */}
         {status && (
           <motion.p
-            className={`
-              mt-5 mb-2 text-center text-base font-semibold transition
-              ${
-                status.startsWith('✅')
-                  ? "text-green-500"
-                  : status.startsWith('❌')
-                  ? "text-pink-500"
-                  : "text-[#a78bfa]"
-              }
-            `}
+            className={`mt-5 mb-2 text-center text-base font-semibold ${
+              status.startsWith('✅')
+                ? 'text-green-500'
+                : status.startsWith('❌')
+                ? 'text-pink-500'
+                : 'text-[#a78bfa]'
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -234,7 +291,6 @@ export default function AuthPage() {
           </p>
         )}
 
-        {/* Login Link */}
         <p
           className="mt-6 text-sm text-center text-[#5B3DF6] hover:underline font-medium cursor-pointer"
           onClick={() => router.push('/auth/login')}

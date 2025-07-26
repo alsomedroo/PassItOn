@@ -5,7 +5,7 @@ import { User } from '@/models/User';
 
 export async function POST(req: Request) {
   await connectToDatabase();
-  const { email, mode = "signup" } = await req.json();
+  const { email, mode = "signup", username } = await req.json();
 
   if (mode === "signup") {
     const existingUser = await User.findOne({ email });
@@ -14,6 +14,15 @@ export async function POST(req: Request) {
         { error: 'User already registered. Please log in.', userExists: true },
         { status: 400 }
       );
+    }
+    if (username) {
+      const existingUsername = await User.findOne({ username });
+      if (existingUsername) {
+        return NextResponse.json(
+          { error: 'Username already taken. Please choose another one.', usernameExists: true },
+          { status: 400 }
+        );
+      }
     }
   } else if (mode === "reset") {
     const existingUser = await User.findOne({ email });

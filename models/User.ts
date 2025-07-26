@@ -5,7 +5,10 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   fullName: { type: String, required: true },
   username: { type: String, unique: true, required: true },
+  collegeIdUrl: { type: String, required: true }, // new
+  verified: { type: Boolean, default: false },     // new
   createdAt: { type: Date, default: Date.now },
 });
+
 
 export const User = mongoose.models.User || mongoose.model('User', UserSchema);
