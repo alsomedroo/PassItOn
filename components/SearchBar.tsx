@@ -76,7 +76,7 @@ export default function SearchBox() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-xs sm:max-w-sm md:max-w-md text-[#23185B]"
+      className="w-full text-[#23185B]"
     >
       <div className="flex items-center relative">
         <input
