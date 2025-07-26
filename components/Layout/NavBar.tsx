@@ -14,8 +14,8 @@ export function NavBar() {
   const navItems = [
     { name: "Home", icon: House, href: "/" },
     { name: "Profile", icon: User, href: "/dashboard" },
-    { name: "Resources", icon: BookOpen, href: "/resources" },
-    { name: "Sell", icon: Layers, href: "/buyer" },
+    //{ name: "Resources", icon: BookOpen, href: "/" },
+    { name: "Sell", icon: Layers, href: "/seller" },
     { name: "Categories", icon: List, href: "/buyer" },
     { name: "About Us", icon: Info, href: "/about" },
   ];
