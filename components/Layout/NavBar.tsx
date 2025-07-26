@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { User, Menu, X, House, Info, Layers, BookOpen, List } from "lucide-react";
+import { User, Menu, X, House, Info, Layers, List } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
+import SearchBox from "../SearchBar";
 
 export function NavBar() {
   const router = useRouter();
@@ -14,17 +15,16 @@ export function NavBar() {
   const navItems = [
     { name: "Home", icon: House, href: "/" },
     { name: "Profile", icon: User, href: "/dashboard" },
-    //{ name: "Resources", icon: BookOpen, href: "/" },
     { name: "Sell", icon: Layers, href: "/seller" },
     { name: "Categories", icon: List, href: "/buyer" },
     { name: "About Us", icon: Info, href: "/about" },
   ];
 
   return (
-    <header className="w-full bg-[#FDF6FF] flex items-center justify-between px-6 py-5 relative shadow-sm">
-      {/* Logo and Branding */}
+    <header className="w-full bg-[#FDF6FF] flex flex-wrap items-center justify-between gap-4 px-4 py-5 md:px-6 relative shadow-sm">
+      {/* Branding */}
       <div
-        className="flex items-center gap-3 cursor-pointer select-none"
+        className="flex justify-between justify-center items-center gap-3 cursor-pointer select-none min-w-[150px]"
         onClick={() => router.push("/")}
       >
         <span className="inline-flex items-center justify-center p-1 rounded-full shadow-md">
@@ -37,7 +37,6 @@ export function NavBar() {
             priority
           />
         </span>
-
         <span
           className="text-[#5B3DF6] font-bold tracking-wider text-lg md:text-xl"
           style={{
@@ -47,7 +46,6 @@ export function NavBar() {
         >
           PASSITON
         </span>
-
         <span className="inline-flex items-center justify-center">
           <Image
             src="/startup_india.png"
@@ -57,9 +55,22 @@ export function NavBar() {
             priority
           />
         </span>
+<button
+  className="p-2 rounded-full hover:bg-[#e0d5fa] transition block md:hidden"
+  onClick={() => setMenuOpen(true)}
+  aria-label="Open menu"
+>
+  <Menu size={28} className="text-[#5B3DF6]" />
+</button>
+
       </div>
 
-      {/* Desktop Navigation */}
+      {/* SearchBox (Centered on mobile, aligned on tablet/laptop) */}
+      <div className="hidden md:flex flex-1 w-full md:w-auto justify-center md:justify-start">
+        <SearchBox />
+      </div>
+
+      {/* Desktop Nav */}
       <nav className="hidden md:flex items-center gap-6">
         {navItems.map(({ name, icon: Icon, href }) => (
           <motion.button
@@ -69,22 +80,21 @@ export function NavBar() {
             onClick={() => router.push(href)}
             className="flex items-center gap-2 px-1 py-2 text-sm font-semibold text-[#5B3DF6] hover:bg-[#E0D5FA] transition rounded-full"
           >
-            <Icon size={20} />
             {name}
           </motion.button>
         ))}
         <LogoutButton />
+        
       </nav>
+      
 
-      {/* Mobile: Hamburger Button */}
-      <div className="md:hidden flex items-center">
-        <button
-          className="p-2 rounded-full hover:bg-[#e0d5fa] transition"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          <Menu size={28} className="text-[#5B3DF6]" />
-        </button>
+      {/* Mobile Hamburger */}
+      <div className="md:hidden w-full flex items-center">
+
+        <div className=" md:flex flex-1 w-full md:w-auto justify-center md:justify-end">
+          <SearchBox />
+        </div>
+        
       </div>
 
       {/* Mobile Slide-out Menu */}
@@ -98,7 +108,6 @@ export function NavBar() {
             >
               <X size={24} />
             </button>
-
             <div className="flex flex-col gap-6 mt-10">
               {navItems.map(({ name, icon: Icon, href }) => (
                 <motion.button
@@ -118,8 +127,6 @@ export function NavBar() {
               <LogoutButton />
             </div>
           </div>
-
-          {/* Click outside menu to close */}
           <div className="flex-1" onClick={() => setMenuOpen(false)} />
         </div>
       )}
