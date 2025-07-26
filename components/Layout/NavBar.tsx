@@ -16,7 +16,7 @@ export function NavBar() {
     { name: "Home", icon: House, href: "/" },
     { name: "Profile", icon: User, href: "/dashboard" },
     { name: "Sell", icon: Layers, href: "/seller" },
-    { name: "Categories", icon: List, href: "/buyer" },
+    { name: "Buy", icon: List, href: "/buyer" },
     { name: "About Us", icon: Info, href: "/about" },
   ];
 
