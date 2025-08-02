@@ -55,7 +55,7 @@ export default function SearchPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center text-[#23185B] text-xl">
+      <div className="bg-[#fff6eb] min-h-[70vh] flex items-center justify-center text-[#23185B] text-xl">
         Searching for “{query}”...
       </div>
     );

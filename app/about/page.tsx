@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const team = [
   {
     name: "Dhruv Jain",
-    role: "Founder & CEO",
+    role: "Co-Founder & CEO",
     image: "/team/Dhruvjain.jpeg",
   },
   {
