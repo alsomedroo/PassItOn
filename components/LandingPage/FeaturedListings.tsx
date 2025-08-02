@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function FeaturedListings() {
   const items = [
     { img: "https://res.cloudinary.com/dgefzrn4v/image/upload/v1753890254/pass-it-on/bvvak4r6nz2gkrzpghou.jpg", label: "Physics (HC Verma  12th)", price: "₹399", slug: "688a3dfe8a1cb1e1f402f948" },
-    { img: "/coset.jpg", label: "Co-Set", price: "₹599", slug: "-6867f62e12721bf44f1cac84" },
+    { img: "/coset.jpg", label: "Co-Set", price: "₹599", slug: "6867f62e12721bf44f1cac84" },
     { img: "/laptop.jpg", label: "Laptop", price: "₹7999", slug: "6867f65012721bf44f1cacb5" },
     { img: "https://res.cloudinary.com/dgefzrn4v/image/upload/v1753890921/pass-it-on/lzy4soomuaawgrqjuyji.jpg", label: "JEE (MTG)", price: "₹459", slug: "688a407f8a1cb1e1f402f95b" },
   ];
