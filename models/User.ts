@@ -8,6 +8,8 @@ const UserSchema = new Schema({
   collegeIdUrl: { type: String, required: true }, // new
   verified: { type: Boolean, default: false },     // new
   createdAt: { type: Date, default: Date.now },
+  mobile: { type: String },                  // new -> optional, editable via card
+  collegeName: { type: String },  
 });
 
 

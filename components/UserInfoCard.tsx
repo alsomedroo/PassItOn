@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Pencil, UserRound } from "lucide-react";
+import { Pencil, UserRound, CheckCircle } from "lucide-react";
 
 interface User {
   fullName: string;
   username: string;
   email: string;
   collegeIdUrl?: string;
+  mobile?: string;
+  collegeName?: string;
+  verified?: boolean;
 }
 
 export default function UserInfoCard() {
@@ -17,6 +20,8 @@ export default function UserInfoCard() {
     fullName: "",
     username: "",
     collegeIdUrl: "",
+    mobile: "",
+    collegeName: "",
   });
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -31,6 +36,8 @@ export default function UserInfoCard() {
             fullName: data.user.fullName || "",
             username: data.user.username || "",
             collegeIdUrl: data.user.collegeIdUrl || "",
+            mobile: data.user.mobile || "",
+            collegeName: data.user.collegeName || "",
           });
         }
       });
@@ -134,7 +141,7 @@ export default function UserInfoCard() {
           )}
         </div>
 
-        {/* Username */}
+        {/* Username + Verified */}
         <div>
           <label className="block text-sm font-semibold mb-1">Username</label>
           {editing ? (
@@ -147,7 +154,51 @@ export default function UserInfoCard() {
               className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5B3DF6]"
             />
           ) : (
-            <p className="text-sm text-gray-800">@{user.username}</p>
+            <p className="text-sm text-gray-800 flex items-center gap-1">
+              @{user.username}
+              {user.verified && (
+                <CheckCircle
+                  size={16}
+                  className="text-green-500 inline-block"
+                />
+              )}
+            </p>
+          )}
+        </div>
+
+        {/* Mobile Number */}
+        <div>
+          <label className="block text-sm font-semibold mb-1">Mobile</label>
+          {editing ? (
+            <input
+              type="text"
+              value={form.mobile}
+              onChange={(e) =>
+                setForm({ ...form, mobile: e.target.value })
+              }
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5B3DF6]"
+            />
+          ) : (
+            <p className="text-sm text-gray-800">{user.mobile || "Not added"}</p>
+          )}
+        </div>
+
+        {/* College Name */}
+        <div>
+          <label className="block text-sm font-semibold mb-1">College</label>
+          {editing ? (
+            <input
+              type="text"
+              value={form.collegeName}
+              onChange={(e) =>
+                setForm({ ...form, collegeName: e.target.value })
+              }
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5B3DF6]"
+            />
+          ) : (
+            <p className="text-sm text-gray-800">
+              {user.collegeName || "Not added"}
+            </p>
           )}
         </div>
 

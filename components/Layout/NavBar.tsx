@@ -14,7 +14,7 @@ export function NavBar() {
 
   const navItems = [
     { name: "Home", icon: House, href: "/" },
-    { name: "Profile", icon: User, href: "/dashboard" },
+    { name: "My Profile", icon: User, href: "/dashboard" },
     { name: "Sell", icon: Layers, href: "/seller" },
     { name: "Buy", icon: List, href: "/buyer" },
     { name: "About Us", icon: Info, href: "/about" },
@@ -22,43 +22,46 @@ export function NavBar() {
 
   return (
     <header className="w-full bg-[#FDF6FF] px-4 py-5 md:px-6 shadow-sm">
+      <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#5B3DF6] via-[#E0D5FA] to-[#5B3DF6]" />
       <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Branding + Hamburger */}
         <div className="w-full md:w-auto flex items-center justify-between">
           {/* Branding Left */}
-          <div
-            className="flex items-center gap-3 cursor-pointer select-none"
-            onClick={() => router.push("/")}
-          >
-            <span className="inline-flex items-center justify-center p-1 rounded-full shadow-md">
-              <Image
-                src="/logo3.jpeg"
-                alt="Brand Logo"
-                width={42}
-                height={42}
-                className="rounded-full"
-                priority
-              />
-            </span>
-            <span
-              className="text-[#5B3DF6] font-bold tracking-wider text-lg md:text-xl"
-              style={{
-                letterSpacing: "0.13em",
-                fontFamily: "'Montserrat', 'Inter', Arial, sans-serif",
-              }}
-            >
-              PASSITON
-            </span>
-            <span className="inline-flex items-center justify-center">
-              <Image
-                src="/startup_india.png"
-                alt="Startup India"
-                width={84}
-                height={84}
-                priority
-              />
-            </span>
-          </div>
+{/* Branding Left */}
+<div
+  className="flex items-center gap-3 cursor-pointer select-none"
+  onClick={() => router.push("/")}
+>
+  <span className="inline-flex items-center justify-center rounded-full shadow-md">
+    <Image
+      src="/logo3.jpeg"
+      alt="Brand Logo"
+      width={84}   // doubled from 42
+      height={84}  // doubled from 42
+      className="rounded-full"
+      priority
+    />
+  </span>
+  <span
+    className="text-[#5B3DF6] font-bold tracking-wider text-lg md:text-xl"
+    style={{
+      letterSpacing: "0.13em",
+      fontFamily: "'Montserrat', 'Inter', Arial, sans-serif",
+    }}
+  >
+    PASSITON
+  </span>
+  <span className="inline-flex items-center justify-center">
+    <Image
+      src="/startup_india.png"
+      alt="Startup India"
+      width={168}   // doubled from 84
+      height={168}  // doubled from 84
+      priority
+    />
+  </span>
+</div>
+
 
           {/* Hamburger Right (Mobile only) */}
           <button
@@ -123,8 +126,12 @@ export function NavBar() {
             </div>
           </div>
           <div className="flex-1" onClick={() => setMenuOpen(false)} />
+            
         </div>
+        
       )}
+      
     </header>
+    
   );
 }

@@ -9,36 +9,36 @@ const team = [
     role: "Co-Founder & CEO",
     image: "/team/Dhruvjain.jpeg",
   },
-  {
-    name: "Aadi Jain",
-    role: "Co-founder & CTO",
-    image: "/team/Aadijain.jpeg",
-  },
+  // {
+  //   name: "Aadi Jain",
+  //   role: "Co-founder & CTO",
+  //   image: "/team/Aadijain.jpeg",
+  // },
   {
     name: "Aryan Panwar",
     role: "Co-founder & CMO",
     image: "/team/aryanpanwar.jpeg",
   },
-  {
-    name: "Devansh Rana",
-    role: "Co-founder & COO",
-    image: "/team/Devanshrana.jpeg",
-  },
-  {
-    name: "Sudhanshu Gill",
-    role: "UI/UX Designer",
-    image: "/team/sudhanshu.jpeg",
-  },
-  {
-    name: "Vikrant Baliyan",
-    role: "Community Head",
-    image: "/team/Vikrant.jpeg",
-  },
-  {
-    name: "Akhilesh Chahar",
-    role: "Marketing Lead",
-    image: "/team/Akhilesh.jpeg",
-  },
+  // {
+  //   name: "Devansh Rana",
+  //   role: "Co-founder & COO",
+  //   image: "/team/Devanshrana.jpeg",
+  // },
+  // {
+  //   name: "Sudhanshu Gill",
+  //   role: "UI/UX Designer",
+  //   image: "/team/sudhanshu.jpeg",
+  // },
+  // {
+  //   name: "Vikrant Baliyan",
+  //   role: "Community Head",
+  //   image: "/team/Vikrant.jpeg",
+  // },
+  // {
+  //   name: "Akhilesh Chahar",
+  //   role: "Marketing Lead",
+  //   image: "/team/Akhilesh.jpeg",
+  // },
 ];
 
 export default function AboutPage() {
